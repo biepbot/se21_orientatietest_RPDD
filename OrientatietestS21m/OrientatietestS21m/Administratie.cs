@@ -8,5 +8,22 @@ namespace OrientatietestS21m
 {
     class Administratie
     {
+        private List<Verkoop> ListVerkopen;
+        private List<Verhuur> ListVerhuren;
+
+        public Administratie()
+        {
+
+        }
+
+        public void VoegToe(Verhuur verhuur)
+        {
+
+        }
+
+        public void VoegToe(Verkoop verkoop)
+        {
+
+        }
     }
 }

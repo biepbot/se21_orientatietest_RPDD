@@ -8,5 +8,8 @@ namespace OrientatietestS21m
 {
     interface IInkomsten
     {
+        decimal Bedrag { get; }
+        BTWTarief BTWTarief { get; }
+        DateTime Tijdstip { get; }
     }
 }

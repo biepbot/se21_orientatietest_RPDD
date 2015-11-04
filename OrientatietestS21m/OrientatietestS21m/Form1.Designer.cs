@@ -1,4 +1,4 @@
-﻿namespace _2015_NJ_SE2_BP3_Beginsituatie
+﻿namespace OrientatietestS21m
 {
     partial class Form1
     {

@@ -6,7 +6,34 @@ using System.Threading.Tasks;
 
 namespace OrientatietestS21m
 {
-    class Feestzaal
+    class Feestzaal : Verhuur
     {
+        private BTWTarief BTWtarief;
+        private decimal prijsPerUUr;
+
+        override public BTWTarief BTWTarief
+        {
+            get
+            {
+                return BTWtarief;
+            }
+        }
+        override public decimal PrijsPerUUr
+        {
+            get
+            {
+                return prijsPerUUr;
+            }
+        }
+
+        public Feestzaal(DateTime tijdstip, int urenVerhuurd) :base(tijdstip, urenVerhuurd)
+        {
+
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
