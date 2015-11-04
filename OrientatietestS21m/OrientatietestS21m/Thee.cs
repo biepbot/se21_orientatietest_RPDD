@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrientatietestS21m
 {
-    class Thee : Verkoop
+    public class Thee : Verkoop
     {
         private BTWTarief BTWtarief = BTWTarief.Laag;
         private decimal prijs = 0.50M;

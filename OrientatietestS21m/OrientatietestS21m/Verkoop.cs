@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrientatietestS21m
 {
-    abstract class Verkoop
+     public abstract class Verkoop : IInkomsten
     {
         public int Aantal { get; set; }
 

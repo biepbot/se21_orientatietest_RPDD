@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrientatietestS21m
 {
-    class Herberg : Verhuur
+    public class Herberg : Verhuur
     {
-        private BTWTarief BTWtarief = BTWTarief.Ongespecificeerd;
+        private BTWTarief BTWtarief = BTWTarief.Hoog;
         private decimal prijsPerUUr = 30.00M;
 
         override public BTWTarief BTWTarief
