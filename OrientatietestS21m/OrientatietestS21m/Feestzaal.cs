@@ -26,7 +26,7 @@ namespace OrientatietestS21m
             }
         }
 
-        public Feestzaal(DateTime tijdstip, int urenVerhuurd) :base(tijdstip, urenVerhuurd)
+        public Feestzaal(DateTime tijdstip, int urenVerhuurd) : base(tijdstip, urenVerhuurd)
         {
 
         }

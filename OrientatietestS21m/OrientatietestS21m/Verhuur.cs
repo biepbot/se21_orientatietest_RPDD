@@ -9,7 +9,19 @@ namespace OrientatietestS21m
     abstract class Verhuur
     {
         public int UrenVerhuurd { get; set; }
-        public decimal Bedrag { get; private set; }
+
+        private decimal bedrag;
+        public decimal Bedrag
+        {
+            get
+            {
+                return PrijsPerUUr * UrenVerhuurd;
+            }
+            private set
+            {
+                bedrag = PrijsPerUUr * UrenVerhuurd;
+            }            
+        }
         public DateTime Tijdstip { get; set; }
         public abstract BTWTarief BTWTarief { get; }
         public abstract decimal PrijsPerUUr { get; }
