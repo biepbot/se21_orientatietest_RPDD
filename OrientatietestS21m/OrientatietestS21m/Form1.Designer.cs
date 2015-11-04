@@ -378,7 +378,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "Sporthal De Ploeterende Panda";
+            this.Text = "Sporthal De Ploeterende Panda - Rowan Dings";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNieuweVerhuringUren)).EndInit();

@@ -22,7 +22,6 @@ namespace OrientatietestS21m
 
         private void btnNieuweVerhuringToevoegen_Click(object sender, EventArgs e)
         {
-            //TODO: check voor dubbele waardes
             if (cbNieuweVerhuring.SelectedIndex == 0)
             {
                 adm.VoegToe(new Feestzaal(dtpNieuweVerhuringTijdstip.Value, Convert.ToInt32(nudNieuweVerhuringUren.Value)));
@@ -39,17 +38,13 @@ namespace OrientatietestS21m
             {
                 foreach (Verhuur v in adm.ListVerhuren)
                 {
-                    if (!lbVerhuringen.Items.Contains(v.ToString()))
-                    {
-                        lbVerhuringen.Items.Add(v.ToString());
-                    }
+                    lbVerhuringen.Items.Add(v);
                 }
             }
         }
 
         private void btnNieuweVerkoopToevoegen_Click(object sender, EventArgs e)
         {
-            //TODO check voor dubbele waardes
             if (cbNieuweVerkoop.SelectedIndex == 0)
             {
                 adm.VoegToe(new Sterkedrank(Convert.ToInt32(nudNieuweVerkoopAantal.Value)));
@@ -66,10 +61,7 @@ namespace OrientatietestS21m
             {
                 foreach (Verkoop v in adm.ListVerkopen)
                 {
-                    if (!lbVerkopen.Items.Contains(v.ToString()))
-                    {
-                        lbVerkopen.Items.Add(v.ToString());
-                    }
+                    lbVerkopen.Items.Add(v);
                 }
             }
         }
@@ -86,7 +78,15 @@ namespace OrientatietestS21m
 
         private void btnOverzichtExporteer_Click(object sender, EventArgs e)
         {
-
+            BTWTarief btw = BTWTarief.Ongespecificeerd;
+            SaveFileDialog Opslaan = new SaveFileDialog();
+            Opslaan.DefaultExt = ".txt";
+            Opslaan.Filter = "Text file (*.txt)|*.txt|Alle bestanden|*.*";
+            if (Opslaan.ShowDialog() == DialogResult.OK)
+            {
+                Enum.TryParse(cbOverzichtBTW.Text, out btw);
+                adm.Exporteer(Opslaan.FileName, btw);
+            }
         }
     }
 }
