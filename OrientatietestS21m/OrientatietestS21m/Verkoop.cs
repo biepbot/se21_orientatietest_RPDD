@@ -29,6 +29,7 @@ namespace OrientatietestS21m
         public Verkoop(int aantal)
         {
             this.Aantal = aantal;
+            this.Tijdstip = DateTime.Now;
         }
 
         public override string ToString()
