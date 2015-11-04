@@ -377,6 +377,9 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(498, 427);
+            this.MinimumSize = new System.Drawing.Size(498, 427);
             this.Name = "Form1";
             this.Text = "Sporthal De Ploeterende Panda - Rowan Dings";
             this.groupBox1.ResumeLayout(false);

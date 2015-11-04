@@ -34,7 +34,7 @@ namespace OrientatietestS21m
 
         public override string ToString()
         {
-            return base.ToString();
+            return "Thee: " + base.ToString();
         }
     }
 }

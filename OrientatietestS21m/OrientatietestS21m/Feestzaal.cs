@@ -33,7 +33,7 @@ namespace OrientatietestS21m
 
         public override string ToString()
         {
-            return base.ToString();
+            return "Feestzaal: " + base.ToString();
         }
     }
 }
