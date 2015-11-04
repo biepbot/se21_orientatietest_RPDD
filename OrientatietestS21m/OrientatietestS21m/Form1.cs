@@ -76,7 +76,7 @@ namespace OrientatietestS21m
 
         private void btnOverzichtDatumbereik_Click(object sender, EventArgs e)
         {
-
+            //
         }
 
         private void btnOverzichtExporteer_Click(object sender, EventArgs e)
