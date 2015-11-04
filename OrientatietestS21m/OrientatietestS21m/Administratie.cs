@@ -13,7 +13,8 @@ namespace OrientatietestS21m
 
         public Administratie()
         {
-
+            ListVerhuren = new List<Verhuur>();
+            ListVerkopen = new List<Verkoop>();
         }
 
         public void VoegToe(Verhuur verhuur)

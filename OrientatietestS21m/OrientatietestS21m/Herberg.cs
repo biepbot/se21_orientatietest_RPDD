@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OrientatietestS21m
 {
-    class Feestzaal : Verhuur
+    class Herberg : Verhuur
     {
         private BTWTarief BTWtarief = BTWTarief.Ongespecificeerd;
-        private decimal prijsPerUUr = 45.50M;
+        private decimal prijsPerUUr = 30.00M;
 
         override public BTWTarief BTWTarief
         {
@@ -26,7 +26,8 @@ namespace OrientatietestS21m
             }
         }
 
-        public Feestzaal(DateTime tijdstip, int urenVerhuurd) :base(tijdstip, urenVerhuurd)
+        public Herberg(DateTime tijdstip, int urenVerhuurd)
+            : base(tijdstip, urenVerhuurd)
         {
 
         }
