@@ -76,7 +76,12 @@ namespace OrientatietestS21m
 
         private void btnOverzichtDatumbereik_Click(object sender, EventArgs e)
         {
-            //
+            string message = string.Empty;
+            foreach (Verhuur i in adm.Overzicht(dtpOverzichtVan.Value, dtpOverzichtTot.Value))
+            {
+                message += i.ToString() + Environment.NewLine;
+            }
+            MessageBox.Show(message);
         }
 
         private void btnOverzichtExporteer_Click(object sender, EventArgs e)
