@@ -22,6 +22,7 @@ namespace OrientatietestS21m
 
         private void btnNieuweVerhuringToevoegen_Click(object sender, EventArgs e)
         {
+            //TODO: check voor dubbele waardes
             if (cbNieuweVerhuring.SelectedIndex == 0)
             {
                 adm.VoegToe(new Feestzaal(dtpNieuweVerhuringTijdstip.Value, Convert.ToInt32(nudNieuweVerhuringUren.Value)));
@@ -48,6 +49,7 @@ namespace OrientatietestS21m
 
         private void btnNieuweVerkoopToevoegen_Click(object sender, EventArgs e)
         {
+            //TODO check voor dubbele waardes
             if (cbNieuweVerkoop.SelectedIndex == 0)
             {
                 adm.VoegToe(new Sterkedrank(Convert.ToInt32(nudNieuweVerkoopAantal.Value)));
