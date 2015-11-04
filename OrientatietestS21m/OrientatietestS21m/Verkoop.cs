@@ -21,7 +21,7 @@ namespace OrientatietestS21m
 
         public override string ToString()
         {
-            return base.ToString();
+            return String.Format("{0}: {1} voor {2} totaal", Tijdstip, Aantal, Bedrag);
         }
     }
 }

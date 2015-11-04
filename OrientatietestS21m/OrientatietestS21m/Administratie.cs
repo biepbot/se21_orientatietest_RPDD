@@ -8,8 +8,8 @@ namespace OrientatietestS21m
 {
     class Administratie
     {
-        private List<Verkoop> ListVerkopen;
-        private List<Verhuur> ListVerhuren;
+        public List<Verkoop> ListVerkopen;
+        public List<Verhuur> ListVerhuren;
 
         public Administratie()
         {
@@ -19,12 +19,12 @@ namespace OrientatietestS21m
 
         public void VoegToe(Verhuur verhuur)
         {
-
+            ListVerhuren.Add(verhuur);
         }
 
         public void VoegToe(Verkoop verkoop)
         {
-
+            ListVerkopen.Add(verkoop);
         }
     }
 }

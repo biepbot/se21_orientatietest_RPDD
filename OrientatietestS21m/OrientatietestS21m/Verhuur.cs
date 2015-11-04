@@ -22,7 +22,7 @@ namespace OrientatietestS21m
 
         public override string ToString()
         {
-            return base.ToString();
+            return String.Format("{0}, {1} uren voor {2} totaal", Tijdstip, UrenVerhuurd, Bedrag);
         }
     }
 }
