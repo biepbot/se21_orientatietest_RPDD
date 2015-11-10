@@ -42,7 +42,7 @@ namespace OrientatietestS21m
             {
                 lbVerhuringen.Items.Clear();
 
-                foreach (Verhuur v in adm.ListVerhuren)
+                foreach (Verhuur v in adm.SpecifiekOverzicht(false))
                 {
                     lbVerhuringen.Items.Add(v);
                 }
@@ -71,7 +71,7 @@ namespace OrientatietestS21m
             {
                 lbVerkopen.Items.Clear();
 
-                foreach (Verkoop v in adm.ListVerkopen)
+                foreach (Verkoop v in adm.SpecifiekOverzicht(true))
                 {
                     lbVerkopen.Items.Add(v);
                 }
@@ -81,8 +81,14 @@ namespace OrientatietestS21m
         private void btnOverzichtDatumbereik_Click(object sender, EventArgs e)
         {
             //Maak een lijstje aan van de verhuren, en laat deze zien
-            string message = string.Empty;
-            foreach (Verhuur i in adm.Overzicht(dtpOverzichtVan.Value, dtpOverzichtTot.Value))
+            string message = "Verhuren:" + Environment.NewLine;
+            foreach (Verhuur i in adm.Overzicht(dtpOverzichtVan.Value, dtpOverzichtTot.Value, false))
+            {
+                message += i.ToString() + Environment.NewLine;
+            }
+            message += "-------------------------------------------------------" + Environment.NewLine;
+            message += "Verkopen" + Environment.NewLine;
+            foreach (Verkoop i in adm.Overzicht(dtpOverzichtVan.Value, dtpOverzichtTot.Value, true))
             {
                 message += i.ToString() + Environment.NewLine;
             }
@@ -99,8 +105,12 @@ namespace OrientatietestS21m
             Opslaan.Filter = "Text file (*.txt)|*.txt|Alle bestanden|*.*";
             if (Opslaan.ShowDialog() == DialogResult.OK)
             {
+                string errormessage = string.Empty;
                 Enum.TryParse(cbOverzichtBTW.Text, out btw);
-                adm.Exporteer(Opslaan.FileName, btw);
+                if (adm.Exporteer(Opslaan.FileName, btw, out errormessage))
+                {
+                    MessageBox.Show(errormessage);
+                }
             }
         }
     }

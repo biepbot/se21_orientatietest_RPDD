@@ -9,32 +9,47 @@ namespace OrientatietestS21m
 {
     public class Administratie
     {
-        public List<Verkoop> ListVerkopen;
-        public List<Verhuur> ListVerhuren;
+        public List<IInkomsten> ListAankopen;
 
         public Administratie()
         {
-            ListVerhuren = new List<Verhuur>();
-            ListVerkopen = new List<Verkoop>();
+            ListAankopen = new List<IInkomsten>();
         }
 
         public void VoegToe(Verhuur verhuur)
         {
-            ListVerhuren.Add(verhuur);
+            ListAankopen.Add(verhuur);
         }
 
         public void VoegToe(Verkoop verkoop)
         {
-            ListVerkopen.Add(verkoop);
+            ListAankopen.Add(verkoop);
         }
 
         //
         public List<IInkomsten> Overzicht(DateTime van, DateTime tot)
         {
             List<IInkomsten> listSort = new List<IInkomsten>();
-            foreach (Verhuur v in ListVerhuren)
+            foreach (Verhuur v in ListAankopen)
             {
                 if (v.Tijdstip > van && v.Tijdstip.AddHours(v.UrenVerhuurd) < tot)
+                {
+                    listSort.Add(v);
+                }
+            }
+            listSort = listSort.OrderBy(v => v.Tijdstip).ToList();
+            listSort.Reverse();
+            return listSort;
+        }
+
+        public List<IInkomsten> Overzicht(DateTime van, DateTime tot, bool isverkoop)
+        {
+            List<IInkomsten> listSort = new List<IInkomsten>();
+            List<IInkomsten> listFilter = isverkoop ? ListAankopen.FindAll(aa => aa is Verkoop) : ListAankopen.FindAll(aa => aa is Verhuur);
+            foreach (IInkomsten v in listFilter)
+            {
+                DateTime totcheck = isverkoop ? v.Tijdstip : v.Tijdstip.AddHours(((Verhuur)v).UrenVerhuurd);
+                if (v.Tijdstip > van && totcheck < tot)
                 {
                     listSort.Add(v);
                 }
@@ -47,18 +62,19 @@ namespace OrientatietestS21m
         public List<IInkomsten> AllOverzicht()
         {
             List<IInkomsten> listSort = new List<IInkomsten>();
-            listSort.AddRange(ListVerhuren);
-            listSort.AddRange(ListVerkopen);
-            listSort = listSort.OrderBy(v => v.Tijdstip).ToList();
+            listSort = ListAankopen.OrderBy(v => v.Tijdstip).ToList();
             listSort.Reverse();
             return listSort;
         }
 
+        public List<IInkomsten> SpecifiekOverzicht(bool isverkoop)
+        {
+            return isverkoop ? ListAankopen.FindAll(aa => aa is Verkoop) : ListAankopen.FindAll(aa => aa is Verhuur);
+        }
+
         public List<IInkomsten> Overzicht(BTWTarief tarief)
         {
-            List<IInkomsten> listSortOud = new List<IInkomsten>();
-            listSortOud.AddRange(ListVerhuren);
-            listSortOud.AddRange(ListVerkopen);
+            List<IInkomsten> listSortOud = ListAankopen;
             List<IInkomsten> listSort = new List<IInkomsten>();
             if (tarief != BTWTarief.Ongespecificeerd)
             {
@@ -79,31 +95,41 @@ namespace OrientatietestS21m
             return listSort;
         }
 
-        public void Exporteer(string path, BTWTarief tarief)
+        public bool Exporteer(string path, BTWTarief tarief, out string error)
         {
-            decimal hoog = 0M;
-            decimal laag = 0M;
-            decimal totaal = 0M;
-            List<IInkomsten> tarievenlijst = Overzicht(tarief);
-            StreamWriter sw = new StreamWriter(path);
-            foreach (IInkomsten i in tarievenlijst)
+            error = string.Empty;
+            try
             {
-                sw.WriteLine(String.Format("{0} - {1}", i.ToString(), i.BTWTarief));
-                if (i.BTWTarief == BTWTarief.Laag)
+                decimal hoog = 0M;
+                decimal laag = 0M;
+                decimal totaal = 0M;
+                List<IInkomsten> tarievenlijst = Overzicht(tarief);
+                StreamWriter sw = new StreamWriter(path);
+                foreach (IInkomsten i in tarievenlijst)
                 {
-                    laag += i.Bedrag;
+                    sw.WriteLine(String.Format("{0} - {1}", i.ToString(), i.BTWTarief));
+                    if (i.BTWTarief == BTWTarief.Laag)
+                    {
+                        laag += i.Bedrag;
+                    }
+                    if (i.BTWTarief == BTWTarief.Hoog)
+                    {
+                        hoog += i.Bedrag;
+                    }
+                    totaal += i.Bedrag;
                 }
-                if (i.BTWTarief == BTWTarief.Hoog)
-                {
-                    hoog += i.Bedrag;
-                }
-                totaal += i.Bedrag;
+                sw.WriteLine();
+                sw.WriteLine("Totaal Laag: EUR " + laag);
+                sw.WriteLine("Totaal Hoog: EUR " + hoog);
+                sw.WriteLine("Totaal: EUR " + totaal);
+                sw.Close();
+                return false;
             }
-            sw.WriteLine();
-            sw.WriteLine("Totaal Laag: EUR " + laag);
-            sw.WriteLine("Totaal Hoog: EUR " + hoog);
-            sw.WriteLine("Totaal: EUR " + totaal);
-            sw.Close();
+            catch (Exception e)
+            {
+                error = "Oeps, de volgende error heeft zich voortgedaan: \n" + e.Message;
+                return true;
+            }
         }
     }
 }

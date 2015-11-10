@@ -8,7 +8,7 @@ namespace OrientatietestS21m
 {
     public class Herberg : Verhuur
     {
-        private BTWTarief BTWtarief = BTWTarief.Hoog;
+        private static BTWTarief BTWtarief = BTWTarief.Hoog;
         private decimal prijsPerUUr = 30.00M;
 
         override public BTWTarief BTWTarief

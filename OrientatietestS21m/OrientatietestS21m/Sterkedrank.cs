@@ -8,7 +8,7 @@ namespace OrientatietestS21m
 {
     public class Sterkedrank : Verkoop
     {
-        private BTWTarief BTWtarief = BTWTarief.Laag;
+        private static BTWTarief BTWtarief = BTWTarief.Hoog;
         private decimal prijs = 3.00M;
 
         override public BTWTarief BTWTarief

@@ -13,7 +13,7 @@ namespace OrientatieTest
             Administratie adm = new Administratie();
             adm.VoegToe(new Feestzaal(DateTime.Now, 1));
             Assert.IsNotNull(adm);
-            Assert.IsNotNull(adm.ListVerhuren[0]);
+            Assert.IsNotNull(adm.ListAankopen[0]);
         }
 
         [TestMethod]
@@ -22,7 +22,7 @@ namespace OrientatieTest
             Administratie adm = new Administratie();
             adm.VoegToe(new SoftDrank(5));
             Assert.IsNotNull(adm);
-            Assert.IsNotNull(adm.ListVerkopen[0]);
+            Assert.IsNotNull(adm.ListAankopen[0]);
         }
 
         [TestMethod]
@@ -71,9 +71,9 @@ namespace OrientatieTest
         {
             Administratie adm = SetupSort();
             DateTime test = DateTime.Now;
-            foreach (Verhuur i in adm.Overzicht(test, test.AddHours(500)))
+            foreach (IInkomsten i in adm.Overzicht(test, test.AddHours(500), false))
             {
-                if (!(i.Tijdstip > test && i.Tijdstip.AddHours(i.UrenVerhuurd) < test.AddHours(500)))
+                if (!(i.Tijdstip > test && i.Tijdstip.AddHours(((Verhuur)i).UrenVerhuurd) < test.AddHours(500)))
                 {
                     Assert.Fail();
                     break;
