@@ -26,75 +26,57 @@ namespace OrientatietestS21m
             ListAankopen.Add(verkoop);
         }
 
-        //
-        public List<IInkomsten> Overzicht(DateTime van, DateTime tot)
-        {
-            List<IInkomsten> listSort = new List<IInkomsten>();
-            foreach (Verhuur v in ListAankopen)
-            {
-                if (v.Tijdstip > van && v.Tijdstip.AddHours(v.UrenVerhuurd) < tot)
-                {
-                    listSort.Add(v);
-                }
-            }
-            listSort = listSort.OrderBy(v => v.Tijdstip).ToList();
-            listSort.Reverse();
-            return listSort;
-        }
-
+        /// <summary>
+        /// Van een lijst van Verhuren/verkopen: vind alles tussen die twee tijdstippen en sorteer deze op tijd
+        /// </summary>
+        /// <param name="van">De tijd vanaf</param>
+        /// <param name="tot">De tijd tot</param>
+        /// <returns>Een lijst van alle iinkomsten</returns>
         public List<IInkomsten> Overzicht(DateTime van, DateTime tot, bool isverkoop)
         {
-            List<IInkomsten> listSort = new List<IInkomsten>();
-            List<IInkomsten> listFilter = isverkoop ? ListAankopen.FindAll(aa => aa is Verkoop) : ListAankopen.FindAll(aa => aa is Verhuur);
-            foreach (IInkomsten v in listFilter)
-            {
-                DateTime totcheck = isverkoop ? v.Tijdstip : v.Tijdstip.AddHours(((Verhuur)v).UrenVerhuurd);
-                if (v.Tijdstip > van && totcheck < tot)
-                {
-                    listSort.Add(v);
-                }
-            }
-            listSort = listSort.OrderBy(v => v.Tijdstip).ToList();
-            listSort.Reverse();
-            return listSort;
+            return !isverkoop ?
+                (ListAankopen.FindAll(v => v is Verhuur && v.Tijdstip > van && v.Tijdstip.AddHours(((Verhuur)v).UrenVerhuurd) < tot)).OrderByDescending(v => v.Tijdstip).ToList() :
+                (ListAankopen.FindAll(v => v is Verkoop && v.Tijdstip > van && v.Tijdstip < tot)).OrderByDescending(v => v.Tijdstip).ToList();
         }
 
+        /// <summary>
+        /// Retourneert een lijst van alle aankopen, gesorteerd op tijd
+        /// </summary>
+        /// <returns></returns>
         public List<IInkomsten> AllOverzicht()
         {
-            List<IInkomsten> listSort = new List<IInkomsten>();
-            listSort = ListAankopen.OrderBy(v => v.Tijdstip).ToList();
-            listSort.Reverse();
-            return listSort;
+            return ListAankopen.OrderByDescending(v => v.Tijdstip).ToList();
         }
 
+        /// <summary>
+        /// Retourneert een lijst van of alle verhuren, of alle verkopen
+        /// </summary>
+        /// <param name="isverkoop"></param>
+        /// <returns></returns>
         public List<IInkomsten> SpecifiekOverzicht(bool isverkoop)
         {
             return isverkoop ? ListAankopen.FindAll(aa => aa is Verkoop) : ListAankopen.FindAll(aa => aa is Verhuur);
         }
 
+        /// <summary>
+        /// Retourneert een overzicht van de geselecteerde btw tarieven. Indien ongespecifieerd, retourneer alles.
+        /// </summary>
+        /// <param name="tarief"></param>
+        /// <returns></returns>
         public List<IInkomsten> Overzicht(BTWTarief tarief)
         {
-            List<IInkomsten> listSortOud = ListAankopen;
-            List<IInkomsten> listSort = new List<IInkomsten>();
-            if (tarief != BTWTarief.Ongespecificeerd)
-            {
-                foreach (IInkomsten v in listSortOud)
-                {
-                    if (v.BTWTarief == tarief)
-                    {
-                        listSort.Add(v);
-                    }
-                }
-            }
-            else
-            {
-                listSort = listSortOud;
-            }
-            listSort = listSort.OrderBy(v => v.Tijdstip).ToList();
-            listSort.Reverse();
-            return listSort;
+            return tarief != BTWTarief.Ongespecificeerd ?
+                ListAankopen.FindAll(i => i.BTWTarief == tarief).OrderByDescending(i => i.Tijdstip).ToList() :
+                ListAankopen;
         }
 
+        /// <summary>
+        /// Exporteert een file
+        /// </summary>
+        /// <param name="path">Het pad van de file</param>
+        /// <param name="tarief">Welke tarieven worden geexporteerd</param>
+        /// <param name="error">De error mits het fout gaat</param>
+        /// <returns>Of het is foutgegaan of niet</returns>
         public bool Exporteer(string path, BTWTarief tarief, out string error)
         {
             error = string.Empty;

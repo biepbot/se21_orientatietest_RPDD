@@ -82,16 +82,20 @@ namespace OrientatietestS21m
         {
             //Maak een lijstje aan van de verhuren, en laat deze zien
             string message = "Verhuren:" + Environment.NewLine;
+
             foreach (Verhuur i in adm.Overzicht(dtpOverzichtVan.Value, dtpOverzichtTot.Value, false))
             {
                 message += i.ToString() + Environment.NewLine;
             }
+            message += "Geen verdere verhuren gevonden." + Environment.NewLine;
             message += "-------------------------------------------------------" + Environment.NewLine;
             message += "Verkopen" + Environment.NewLine;
             foreach (Verkoop i in adm.Overzicht(dtpOverzichtVan.Value, dtpOverzichtTot.Value, true))
             {
                 message += i.ToString() + Environment.NewLine;
             }
+            message += "Geen verdere verkopen gevonden." + Environment.NewLine;
+
             MessageBox.Show(message);
         }
 
