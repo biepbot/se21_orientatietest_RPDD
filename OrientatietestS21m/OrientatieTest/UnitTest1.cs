@@ -11,7 +11,7 @@ namespace OrientatieTest
         public void AdminVoegToe1()
         {
             Administratie adm = new Administratie();
-            adm.VoegToe(new Feestzaal(DateTime.Now, 1));
+            adm.VoegToe("Feestzaal", 1, DateTime.Now);
             Assert.IsNotNull(adm);
             Assert.IsNotNull(adm.ListAankopen[0]);
         }
@@ -20,7 +20,7 @@ namespace OrientatieTest
         public void AdminVoegToe2()
         {
             Administratie adm = new Administratie();
-            adm.VoegToe(new SoftDrank(5));
+            adm.VoegToe("SoftDrank", 5);
             Assert.IsNotNull(adm);
             Assert.IsNotNull(adm.ListAankopen[0]);
         }
@@ -105,16 +105,16 @@ namespace OrientatieTest
         public Administratie SetupSort()
         {
             Administratie adm = new Administratie();
-            adm.VoegToe(new SoftDrank(5));
-            adm.VoegToe(new Sterkedrank(5));
-            adm.VoegToe(new Thee(5));
-            adm.VoegToe(new Thee(5));
-            adm.VoegToe(new SoftDrank(5));
-            adm.VoegToe(new Feestzaal(DateTime.Now, 1));
-            adm.VoegToe(new Herberg(DateTime.Now.AddHours(15), 5));
-            adm.VoegToe(new Binnenzaal(DateTime.Now.AddDays(12), 7));
-            adm.VoegToe(new Binnenzaal(DateTime.Now.AddHours(4), 9));
-            adm.VoegToe(new Feestzaal(DateTime.Now, 10));
+            adm.VoegToe("SoftDrank", 5);
+            adm.VoegToe("Sterkedrank", 5);
+            adm.VoegToe("Thee", 5);
+            adm.VoegToe("Thee", 5);
+            adm.VoegToe("SoftDrank", 5);
+            adm.VoegToe("Feestzaal", 1, DateTime.Now);
+            adm.VoegToe("Herberg", 5, DateTime.Now.AddHours(15));
+            adm.VoegToe("Binnenzaal", 7, DateTime.Now.AddDays(12));
+            adm.VoegToe("Binnenzaal", 9, DateTime.Now.AddDays(4));
+            adm.VoegToe("Feestzaal", 10, DateTime.Now);
             return adm;
         }
     }

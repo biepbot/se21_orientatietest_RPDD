@@ -10,20 +10,45 @@ namespace OrientatietestS21m
     public class Administratie
     {
         public List<IInkomsten> ListAankopen;
+        private decimal HoogBTW = 0M;
+        private decimal LaagBTW = 0M;
 
         public Administratie()
         {
             ListAankopen = new List<IInkomsten>();
         }
 
-        public void VoegToe(Verhuur verhuur)
+        /// <summary>
+        /// Voegt een verhuur of verkoop item toe aan de IInkomstenlijst
+        /// </summary>
+        /// <param name="type">Het type van het item (Feestzaal, SoftDrink, etc)</param>
+        /// <param name="amount">De hoeveelheid (uren)</param>
+        /// <param name="dtpvalue">Het tijdstip</param>
+        public string VoegToe(string type, int amount, Nullable<DateTime> dtpvalue = null)
         {
-            ListAankopen.Add(verhuur);
-        }
+            //Voeg item toe
+            if (dtpvalue != null)
+            {
+                ListAankopen.Add((Verhuur)Activator.CreateInstance(Type.GetType("OrientatietestS21m." + type), dtpvalue, amount));
+            }
+            else
+            {
+                ListAankopen.Add((Verkoop)Activator.CreateInstance(Type.GetType("OrientatietestS21m." + type), amount));
+            }
 
-        public void VoegToe(Verkoop verkoop)
-        {
-            ListAankopen.Add(verkoop);
+            //Voeg bedrag toe
+            IInkomsten lastItem = ListAankopen[ListAankopen.Count-1];
+            if (lastItem.BTWTarief == BTWTarief.Hoog)
+            {
+                HoogBTW += lastItem.Bedrag;
+            }
+            else
+            {
+                LaagBTW += lastItem.Bedrag;
+            }
+
+            //Retourneer laatste item
+            return lastItem.ToString();
         }
 
         /// <summary>
@@ -82,28 +107,12 @@ namespace OrientatietestS21m
             error = string.Empty;
             try
             {
-                decimal hoog = 0M;
-                decimal laag = 0M;
-                decimal totaal = 0M;
-                List<IInkomsten> tarievenlijst = Overzicht(tarief);
                 StreamWriter sw = new StreamWriter(path);
-                foreach (IInkomsten i in tarievenlijst)
-                {
-                    sw.WriteLine(String.Format("{0} - {1}", i.ToString(), i.BTWTarief));
-                    if (i.BTWTarief == BTWTarief.Laag)
-                    {
-                        laag += i.Bedrag;
-                    }
-                    if (i.BTWTarief == BTWTarief.Hoog)
-                    {
-                        hoog += i.Bedrag;
-                    }
-                    totaal += i.Bedrag;
-                }
+                Overzicht(tarief).ForEach(i => sw.WriteLine(String.Format("{0} - {1}", i.ToString(), i.BTWTarief)));
                 sw.WriteLine();
-                sw.WriteLine("Totaal Laag: EUR " + laag);
-                sw.WriteLine("Totaal Hoog: EUR " + hoog);
-                sw.WriteLine("Totaal: EUR " + totaal);
+                sw.WriteLine("Totaal Laag: EUR " + LaagBTW);
+                sw.WriteLine("Totaal Hoog: EUR " + HoogBTW);
+                sw.WriteLine("Totaal: EUR " + Convert.ToDecimal(LaagBTW + HoogBTW));
                 sw.Close();
                 return false;
             }
