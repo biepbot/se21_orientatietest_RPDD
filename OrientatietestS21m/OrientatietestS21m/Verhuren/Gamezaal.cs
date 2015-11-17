@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OrientatietestS21m
 {
-    public class Herberg : Verhuur
+    public class Gamezaal : Verhuur
     {
         private static BTWTarief BTWtarief = BTWTarief.Hoog;
-        private decimal prijsPerUUr = 30.00M;
+        private decimal prijsPerUUr = 599.00M;
 
         override public BTWTarief BTWTarief
         {
@@ -26,7 +26,7 @@ namespace OrientatietestS21m
             }
         }
 
-        public Herberg(DateTime tijdstip, int urenVerhuurd)
+        public Gamezaal(DateTime tijdstip, int urenVerhuurd)
             : base(tijdstip, urenVerhuurd)
         {
 
@@ -34,7 +34,7 @@ namespace OrientatietestS21m
 
         public override string ToString()
         {
-            return "Herberg: " + base.ToString();
+            return "Gamezaal: " + base.ToString();
         }
     }
 }
