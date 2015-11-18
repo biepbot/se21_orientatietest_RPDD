@@ -69,6 +69,7 @@
     <Compile Include="Verkopen\Speelgoed.cs" />
     <Compile Include="Verkopen\Sportartiekelen.cs" />
     <Compile Include="Verkopen\SoftDrank.cs" />
+    <Compile Include="Verkopen\Sportdrank.cs" />
     <Compile Include="Verkopen\Sterkedrank.cs" />
     <Compile Include="Verkopen\Thee.cs" />
     <Compile Include="Verhuur.cs" />
