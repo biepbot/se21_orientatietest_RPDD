@@ -92,7 +92,7 @@ namespace OrientatietestS21m
         {
             return tarief != BTWTarief.Ongespecificeerd ?
                 ListAankopen.FindAll(i => i.BTWTarief == tarief).OrderByDescending(i => i.Tijdstip).ToList() :
-                ListAankopen;
+                ListAankopen.OrderByDescending(i => i.Tijdstip).ToList();
         }
 
         /// <summary>
