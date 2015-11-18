@@ -9,7 +9,7 @@ namespace OrientatietestS21m
     public class Zwembad : Verhuur
     {
         private static BTWTarief BTWtarief = BTWTarief.Hoog;
-        private decimal prijsPerUUr = 25.00M;
+        private static decimal prijsPerUUr = 25.00M;
 
         override public BTWTarief BTWTarief
         {

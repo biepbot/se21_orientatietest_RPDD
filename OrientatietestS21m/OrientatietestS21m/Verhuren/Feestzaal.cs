@@ -9,7 +9,7 @@ namespace OrientatietestS21m
     public class Feestzaal : Verhuur
     {
         private static BTWTarief BTWtarief = BTWTarief.Hoog;
-        private decimal prijsPerUUr = 45.50M;
+        private static decimal prijsPerUUr = 45.50M;
 
         override public BTWTarief BTWTarief
         {

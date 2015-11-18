@@ -106,15 +106,24 @@ namespace OrientatieTest
         {
             Administratie adm = new Administratie();
             adm.VoegToe("SoftDrank", 5);
-            adm.VoegToe("Sterkedrank", 5);
-            adm.VoegToe("Thee", 5);
+            adm.VoegToe("Sterkedrank", 4);
+            adm.VoegToe("Thee", 3);
             adm.VoegToe("Thee", 5);
             adm.VoegToe("SoftDrank", 5);
+            adm.VoegToe("Sportdrank", 4);
+            adm.VoegToe("Kleding", 1);
+            adm.VoegToe("Speelgoed", 43);
+            adm.VoegToe("Sportartiekelen", 4);
             adm.VoegToe("Feestzaal", 1, DateTime.Now);
             adm.VoegToe("Herberg", 5, DateTime.Now.AddHours(15));
-            adm.VoegToe("Binnenzaal", 7, DateTime.Now.AddDays(12));
+            adm.VoegToe("Theater", 7, DateTime.Now.AddDays(12));
             adm.VoegToe("Binnenzaal", 9, DateTime.Now.AddDays(4));
             adm.VoegToe("Feestzaal", 10, DateTime.Now);
+            adm.VoegToe("Bibliotheek", 5, DateTime.Now.AddHours(95));
+            adm.VoegToe("Binnenzaal", 3, DateTime.Now.AddHours(15));
+            adm.VoegToe("Concertzaal", 2, DateTime.Now.AddHours(15));
+            adm.VoegToe("Eethal", 1, DateTime.Now.AddHours(15));
+            adm.VoegToe("Zwembad", 5, DateTime.Now.AddHours(15));
             return adm;
         }
     }
